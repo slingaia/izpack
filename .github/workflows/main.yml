@@ -2,31 +2,37 @@ name: Build IzPack
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
+  # Optional: remove pull_request trigger to avoid double runs
+  # pull_request:
+  #   branches:
+  #     - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    # 1️⃣ Checkout the repository
+    - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 2️⃣ Set up JDK 11
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: 11
         distribution: temurin
 
-    - name: Build with Maven
+    # 3️⃣ Build with Maven, skip dependency-check
+    - name: Build IzPack
       run: mvn clean install -Ddependency-check.skip=true -B
 
+    # 4️⃣ Upload all compiled JARs as artifacts
     - name: Upload compiled JARs
       uses: actions/upload-artifact@v3
       with:
         name: izpack-jars
         path: |
           */target/*.jar
-          
