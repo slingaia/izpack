@@ -22,3 +22,11 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean install -Ddependency-check.skip=true -B
+
+    - name: Upload compiled JARs
+      uses: actions/upload-artifact@v3
+      with:
+        name: izpack-jars
+        path: |
+          */target/*.jar
+          
