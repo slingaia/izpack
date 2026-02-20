@@ -23,7 +23,7 @@ jobs:
         java-version: 11
         distribution: temurin
 
-    # 3️⃣ Build the full project with Maven, skip dependency-check
+    # 3️⃣ Build the full project with Maven, skip dependency-check 
     - name: Build IzPack
       run: mvn clean install -Ddependency-check.skip=true -B
 
